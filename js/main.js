@@ -1,51 +1,52 @@
-/* Example from Leaflet Quick Start Guide*/
+//var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+var mymap = L.map('mapid').setView([25, 0], 2);{
+  
 
-var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+// //add tile layer...replace project id and accessToken with your own
+// L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+// }).addTo(mymap);
 
-//add tile layer...replace project id and accessToken with your own
-L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-}).addTo(mymap);
-/*
-L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="http://mapbox.com">Mapbox</a>',
-    maxZoom: 18,
-    id: 'mapbox.mapbox-streets-v7',
-    accessToken: 'https://api.mapbox.com/v4/mapbox.emerald/page.html?access_token=pk.eyJ1IjoiZG9zYm9ybjIiLCJhIjoiY2l5djFiYnAwMDAwYzJ3bXNyZWQ5OGlqZCJ9.Zcg1gm-k036BtYBkmtrwOQ'
-
-}).addTo(mymap);
-*/
-
-var marker = L.marker([51.5, -0.09]).addTo(mymap);
-
-var circle = L.circle([51.508, -0.11], {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5
+// https: also suppported.
+var Esri_NatGeoWorldMap = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC',
+	maxZoom: 16
 }).addTo(mymap);
 
-var polygon = L.polygon([
-    [51.509, -0.08],
-    [51.503, -0.06],
-    [51.51, -0.047]
-]).addTo(mymap);
 
-marker.bindPopup("<strong>Hello world!</strong><br />I am a popup.").openPopup();
-circle.bindPopup("I am a circle.");
-polygon.bindPopup("I am a polygon.");
+//call getData function
+getData(mymap);
+};
 
-var popup = L.popup()
-    .setLatLng([51.5, -0.09])
-    .setContent("I am a standalone popup.")
-    .openOn(mymap);
+//function to retrieve the data and place it on the map
+function getData(mymap){
+//load the data
+$.ajax("data/futurePop.geojson", {
+    dataType: "json",
 
-var popup = L.popup();
+    }
+);
 
-function onMapClick(e) {
-    popup
-        .setLatLng(e.latlng)
-        .setContent("You clicked the map at " + e.latlng.toString())
-        .openOn(mymap);
+//load the data
+$.ajax("data/futurePop.geojson", {
+dataType: "json",
+success: function(response){
+    //create marker options
+    var geojsonMarkerOptions = {
+        radius: 8,
+        fillColor: "#ff7800",
+        color: "#000",
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.8
+    };
+
+    //create a Leaflet GeoJSON layer and add it to the map
+    L.geoJson(response, {
+        pointToLayer: function (feature, latlng){
+            return L.circleMarker(latlng, geojsonMarkerOptions);
+        }
+    }).addTo(mymap);
 }
-
-mymap.on('click', onMapClick);
+});
+};

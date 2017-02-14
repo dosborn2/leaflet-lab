@@ -1,2 +1,5 @@
-/*style
+/*set height and width of map in html
+
 */
+#mapid { height: 400px; }
+#mapid { width: 1200px; }
