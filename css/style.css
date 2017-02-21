@@ -1,5 +1,20 @@
 /*set height and width of map in html
 
 */
-#mapid { height: 400px; }
-#mapid { width: 1200px; }
+/*#mapid { height: 400px; }
+#mapid { width: 1200px; }*/
+
+
+#mapid {
+    height: 400px;
+    width: 80%;
+    display: inline-block;
+}
+
+/*#panelid {
+    width: 16%;
+    padding: 20px;
+    display: inline-block;
+    vertical-align: top;
+    background-color: #ff0;
+}*/
