@@ -7,7 +7,7 @@
 
 #mapid {
     height: 400px;
-    width: 80%;
+    width: 100%;
     display: inline-block;
 }
 
@@ -17,4 +17,40 @@
     display: inline-block;
     vertical-align: top;
     background-color: #ff0;
+}*/
+
+/*#panel{
+  width: 16%;
+  padding20px;
+  display: inline-block;
+  vertical-align: bottom;
+  background-color: #ff1;
+}*/
+#panel {
+    width: 26%;
+    padding: 20px;
+    display: inline-block;
+    vertical-align: bottom;
+    text-align: center;
+    line-height: 42px;
+}
+
+.range-slider {
+    width: 50%;
+}
+
+#forward {
+    float: right;
+}
+
+#reverse {
+    float: left;
+}
+
+
+/* Popup container */
+/*.popupContent {
+   position: relative;
+   display: inline-block;
+   cursor: pointer;
 }*/
