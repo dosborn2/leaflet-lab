@@ -26,64 +26,61 @@ var capitalIcon = L.icon({
 });
 
 //var created for each capital "brute force,"
-//each locatation is given and assigned teh icon for the capital, a star
+//each locatation is given and assigned the icon for the capital, a star
 var Kabul = L.marker([34.5553,69.2075 ], {
 	icon: capitalIcon
-}).bindPopup('Kabul'),
+}).bindPopup('Kabul 2017 Population: 3.7 million'),
 		Canberra = L.marker([-35.2809, 149.1300], {
 			icon: capitalIcon
-		}).bindPopup('Canberra'),
+		}).bindPopup('Canberra 2017 Population: 381 thousand'),
 		Vienna = L.marker([48.2082, 16.3738], {
 			icon: capitalIcon
-		}).bindPopup('Vienna'),
-		Bridgetown = L.marker([13.0969, -59.6145], {
-			icon: capitalIcon
-		}).bindPopup('Bridgetown'),
+		}).bindPopup('Vienna 2017 Population: 1.9 million'),
 		Brasilia = L.marker([-15.7916, -47.8821], {
 			icon: capitalIcon
-		}).bindPopup('Brasilia'),
+		}).bindPopup('Brasilia 2017 Population: 2.6 million'),
 		Ottawa  = L.marker([45.4215, -75.6972], {
 			icon: capitalIcon
-		}).bindPopup('Ottawa'),
+		}).bindPopup('Ottawa 2017 Population: 934 thousand'),
 		Beijing = L.marker([39.9042, 116.4074], {
 			icon: capitalIcon
-		}).bindPopup('Beijing'),
+		}).bindPopup('Beijing 2017 Population: 21.7 million'),
 		Bogota = L.marker([4.7110, -74.0721], {
 			icon: capitalIcon
-		}).bindPopup('Bogota'),
+		}).bindPopup('Bogota 2017 Population: 8.1 million'),
 		Cairo = L.marker([30.0444, 31.2357], {
 			icon: capitalIcon
-		}).bindPopup('Cairo'),
+		}).bindPopup('Cairo 2017 Population: 10.2 million'),
 		Berlin = L.marker([52.5200, 13.4050], {
 			icon: capitalIcon
-		}).bindPopup('Berlin'),
+		}).bindPopup('Berlin 2017 Population: 3.7 million'),
 		Baghdad = L.marker([33.3128, 44.3615], {
 			icon: capitalIcon
-		}).bindPopup('Baghdad'),
+		}).bindPopup('Baghdad 2017 Population: 3.8 million'),
 		Rome = L.marker([41.9028, 12.4964], {
 			icon: capitalIcon
-		}).bindPopup('Rome'),
+		}).bindPopup('Rome 2017 Population: 2.7 million'),
 		Jerusalem = L.marker([31.7683, 35.2137], {
 			icon: capitalIcon
-		}).bindPopup('Jerusalem'),
+		}).bindPopup('Jerusalem 2017 Population: 764 thousand'),
 		Tripoli = L.marker([32.8872, 13.1913], {
 			icon: capitalIcon
-		}).bindPopup('Tripoli'),
+		}).bindPopup('Tripoli 2017 Population: 1.1 million'),
 		Khartoum = L.marker([15.5007, 32.5599], {
 			icon: capitalIcon
-		}).bindPopup('Khartoum'),
+		}).bindPopup('Khartoum 2017 Population: 5.2 million'),
 		Bern = L.marker([46.9480, 7.4474], {
 			icon: capitalIcon
-		}).bindPopup('Bern'),
+		}).bindPopup('Bern 2017 Population: 142 thousand'),
 		London = L.marker([51.5074, -0.1278], {
 			icon: capitalIcon
-		}).bindPopup('London'),
+		}).bindPopup('London 2017 Population: 8.7 million'),
 		DistrictOfColumbia = L.marker([38.9072, -77.0369], {
 			icon: capitalIcon
-		}).bindPopup('District of Columbia');
+		}).bindPopup('District of Columbia 2017 Population: 680 thousand');
 
 //assign the var capitals to the layer group of all the capitals
-var capitals = L.layerGroup([Kabul, Canberra, Vienna, Bridgetown, Brasilia, Ottawa, Beijing, Bogota, Cairo, Berlin, Baghdad, Rome, Jerusalem, Tripoli, Khartoum, Bern, London, DistrictOfColumbia],{
+var capitals = L.layerGroup([Kabul, Canberra, Vienna, Brasilia, Ottawa, Beijing, Bogota, Cairo, Berlin, Baghdad, Rome, Jerusalem, Tripoli, Khartoum, Bern, London, DistrictOfColumbia],{
 
 });
 
@@ -116,6 +113,8 @@ function calcPropRadius(attValue) {
 		// radius is returned
     return radius;
     };
+
+
 
 //Step 3: Add circle markers for point features to the map
 //function used to create proportion symbols with the data on mymap
@@ -169,9 +168,39 @@ function createPropSymbols(data, mymap, attributes){
 
 //Step 1: Create new sequence controls
 function createSequenceControls(mymap, attributes){
+	var SequenceControl = L.Control.extend({
+		options: {
+			position: 'bottomleft'
+		},
+		onAdd: function (mymap) {
+			//create the controll container div with a particular class name
+			var container = L.DomUtil.create('div', 'sequence-control-container');
+
+			// .... initialize othe DOM elements, add listeners, etc.
+			//create range input element (slider)
+			$(container).append('<input class="range-slider" type="range">');
+
+			//create range input element (slider)
+			//$(container).append('<input class="range-slider" type="range">');
+
+			//add skip buttons and .png icons for buttons
+			$(container).append('<button class="skip" id="reverse" title="Reverse"><img src="img/reverse.png"></button>');
+			$(container).append('<button class="skip" id="forward" title="Forward"><img src="img/forward.png"></button>');
+
+			//kill any mouse event listeners on the map
+			$(container).on('mousedown dblclick', function(e){
+						L.DomEvent.stopPropagation(e);
+			//add icon to slider
+
+				});
+
+			return container;
+		}
+	});
+	mymap.addControl(new SequenceControl());
 
     //create range input element (slider)
-    $('#panel').append('<input class="range-slider" type="range">');
+    // $('#panel').append('<input class="range-slider" type="range">');
 		//set slider attributes
 		$('.range-slider').attr({
 				max: 6,
@@ -180,11 +209,11 @@ function createSequenceControls(mymap, attributes){
 				step: 1
 		});
 		//below Example 3.4...add skip buttons
-$('#panel').append('<button class="skip" id="reverse">Reverse</button>');
-$('#panel').append('<button class="skip" id="forward">Skip</button>');
-//Below Example 3.5...replace button content with images
-$('#reverse').html('<img src="img/reverse.png">');
-$('#forward').html('<img src="img/forward.png">');
+// $('#panel').append('<button class="skip" id="reverse">Reverse</button>');
+// $('#panel').append('<button class="skip" id="forward">Skip</button>');
+// //Below Example 3.5...replace button content with images
+// $('#reverse').html('<img src="img/reverse.png">');
+// $('#forward').html('<img src="img/forward.png">');
 
  //Example 3.12 line 2...Step 5: click listener for buttons
  $('.skip').click(function(){
@@ -204,11 +233,137 @@ $('#forward').html('<img src="img/forward.png">');
 
 		 //Step 8: update slider
 		 $('.range-slider').val(index);
+		 //call updatePropSymbols makes propsymbols dynamic when buttons are pushed
 		 updatePropSymbols(mymap, attributes[index]);
+		 //call updateLegend makes poportion symbols dynamic for slider when buttons are pushed
+		 updateLegend(mymap, attributes[index]);
  });
+
+ //Below Example 3.6 in createSequenceControls()
+//Step 5: click listener for buttons
+
+
+//Step 5: input listener for slider
+$('.range-slider').on('input', function(){
+		//sequence
+		var index = $(this).val();
+//call updatePropSymbols function makes propsymbols dynamic, when slider is moved
+updatePropSymbols(mymap, attributes[index]);
+///call updateLegend makes poportion symbols dynamic for slider when slider is used
+updateLegend(mymap, attributes[index]);
+});
+};
+//function for createLegend with perameters
+function createLegend(mymap, attributes){
+    var LegendControl = L.Control.extend({
+        options: {
+            position: 'bottomright'
+
+        },
+
+        onAdd: function (mymap) {
+            // create the control container with a particular class name
+            var container = L.DomUtil.create('div', 'legend-control-container');
+
+						//add temporal legend div to container
+            $(container).append('<div id="temporal-legend">')
+
+            //Step 1: start attribute legend svg string
+            var svg = '<svg id="attribute-legend" width="400px" height="200px">';
+
+						//object to base loop on...replaces Example 3.10 line 1
+						var circles = {
+						//placed the text in legend at correct height for each corresponding poportion values
+						max: -10,
+						mean: 25,
+						min: 60
+						};
+
+						//loop to add each circle and text to svg string
+						for (var circle in circles){
+						//circle string
+						svg += '<circle class="legend-circle" id="' + circle + '" fill="#b533ff" fill-opacity="0.8" stroke="#000000" cx="70"/>';
+
+						//text string
+						svg += '<text id="' + circle + '-text" x="140" y="' + (circles[circle]+50) + '"></text>';
+						};
+						//close svg string
+						svg += "</svg>";
+
+            //add attribute legend svg to container
+            $(container).append(svg);
+
+            return container;
+
+        }
+
+    });
+
+    mymap.addControl(new LegendControl());
+		//call function updateLegend
+		updateLegend(mymap, attributes[0])
+
 };
 
 
+
+//Calculate the max, mean, and min values for a given attribute
+function getCircleValues(mymap, attribute){
+    //start with min at highest possible and max at lowest possible number
+    var min = Infinity,
+        max = -Infinity;
+
+    mymap.eachLayer(function(layer){
+        //get the attribute value
+        if (layer.feature){
+            var attributeValue = Number(layer.feature.properties[attribute]);
+
+            //test for min
+            if (attributeValue < min){
+                min = attributeValue;
+            };
+
+            //test for max
+            if (attributeValue > max){
+                max = attributeValue;
+            };
+        };
+    });
+
+    //set mean
+    var mean = (max + min) / 2;
+
+    //return values as an object
+    return {
+        max: max,
+        mean: mean,
+        min: min
+    };
+};
+//Update the legend with new attribute
+function updateLegend(mymap, attribute){
+    //create content for legend
+    var year = attribute.split("_")[1];
+    var content = "Population in " + year;
+
+    //replace legend content
+    $('#temporal-legend').html(content);
+		//get the max, mean, and min values as an object
+		var circleValues = getCircleValues(mymap, attribute);
+
+		for (var key in circleValues){
+			//get the radius
+			var radius = calcPropRadius(circleValues[key]);
+
+			//Step 3: assign the cy and r attributes
+			$('#'+key).attr({
+				cy: 120 - radius,
+				r: radius
+		});
+		//Step 4: add legend text
+		$('#'+key+'-text').text(Math.round(circleValues[key]*100)/100 + " million");
+};
+};
 //Above Example 3.8...Step 3: build an attributes array from the data
 function processData(data){
     //empty array to hold attributes
@@ -245,6 +400,8 @@ function getData(mymap){
 								createPropSymbols(response, mymap, attributes);
 								//createSequenceControls funtion called with perameters
 								createSequenceControls(mymap, attributes);
+								//createLegend function called with perameters
+								createLegend(mymap, attributes);
 								//put the stuff below in its own function eventually, that you call from here
 								// var capitals = L.geoJson(response2, {
 								// 	pointToLayer: function(feature, layer){
@@ -269,6 +426,8 @@ function getData(mymap){
 // 			}
 // 	});
 // };
+
+
 //Step 10: Resize proportional symbols according to new attribute values
 function updatePropSymbols(mymap, attribute){
 		//leaflets method to access all the leaflet layers currently on the map
@@ -284,7 +443,6 @@ function updatePropSymbols(mymap, attribute){
 						//update each feature's radius based on new attribute values
 						var radius = calcPropRadius(props[attribute]);
 						layer.setRadius(radius);
-
 						//add city to popup content string
 						var popupContent = "<p><b>Country:</b> " + props.Country + "</p>";
 

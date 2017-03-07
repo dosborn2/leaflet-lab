@@ -48,23 +48,7 @@
 			"type": "Point",
 			"coordinates": [13, 47.333333]
 		}
-	}, {
-		"type": "Feature",
-		"properties": {
-			"Country": "Barbados",
-			"Yr_2020": 288000,
-			"Yr_2030": 290000,
-			"Yr_2040": 288000,
-			"Yr_2050": 282000,
-			"Yr_2060": 287000,
-			"Yr_2070": 271000,
-			"Yr_2080": 267000
-		},
-		"geometry": {
-			"type": "Point",
-			"coordinates": [-60, 13.166667]
-		}
-	}, {
+	},  {
 		"type": "Feature",
 		"properties": {
 			"Country": "Brazil",

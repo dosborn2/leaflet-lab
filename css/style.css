@@ -6,7 +6,7 @@
 
 
 #mapid {
-    height: 400px;
+    height: 425px;
     width: 100%;
     display: inline-block;
 }
@@ -27,12 +27,17 @@
   background-color: #ff1;
 }*/
 #panel {
-    width: 26%;
-    padding: 20px;
+    width: 94%;
+    padding: 40px;
     display: inline-block;
-    vertical-align: bottom;
+    line-height: 2.0em;
+    border: solid black 4px;
     text-align: center;
     line-height: 42px;
+    background-color:   #31c447;
+    opacity: 80%;
+    font-size: 20px;
+
 }
 
 .range-slider {
@@ -42,12 +47,54 @@
 #forward {
     float: right;
 }
-
+#forward img {
+  height: 20px;
+}
 #reverse {
     float: left;
 }
+#reverse img {
+  height: 20px;
+}
+.sequence-control-container {
+    width: 350px;
+    height: 30px;
+    background-color: rgba(255,255,255,0.8);
+    padding: 10px;
+    line-height: 45px;
+    text-align: center;
+    border: solid gray 1px;
+}
+
+.range-slider {
+    width: 200px;
+}
+.legend-control-container {
+  width: 250px;
+  height: 180px;
+  background-color: rgba(255,255,255,0.8);
+  padding: 10px;
+  line-height: 45px;
+  text-align: center;
+  border: solid gray 1px;
+  font-weight: bold;
+  border: solid black 1px;
+
+}
+h1 {
+
+  font-size: 50px;
+  font-family: impact;
+  line-height: 1.85em;
+  border: solid black 4px;
 
 
+
+}
+
+#mydiv {
+  text-align: center;
+}
 /* Popup container */
 /*.popupContent {
    position: relative;
